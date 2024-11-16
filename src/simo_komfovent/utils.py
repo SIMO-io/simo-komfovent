@@ -11,7 +11,7 @@ MODES_MAP = OrderedDict({
         'id': 3, 'name': 'INTENSIVE', 'icon': 'users'
     },
     'boost': {
-        'id': 4, 'name': 'BOOST', 'icon': 'guage-max'
+        'id': 4, 'name': 'BOOST', 'icon': 'gauge-max'
     },
     'kitchen': {
         'id': 5, 'name': 'KITCHEN', 'icon': 'cauldron'

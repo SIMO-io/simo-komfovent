@@ -1,3 +1,4 @@
 simo>=2.5.27
 beautifulsoup4>=4.12.2
+lxml>=4.9.4
 

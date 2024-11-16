@@ -18,7 +18,7 @@ class KomfoventGatewayHandler(BaseObjectCommandsGatewayHandler):
     config_form = BaseGatewayForm
 
     periodic_tasks = (
-        ('watch_komfovents', 10),
+        ('watch_komfovents', 30),
     )
 
     sessions = {}
@@ -48,7 +48,7 @@ class KomfoventGatewayHandler(BaseObjectCommandsGatewayHandler):
                 timeout=3
             )
         except requests.exceptions.Timeout:
-            if try_no >= 5:
+            if try_no >= 3:
                 self.unalive_komfovent(
                     comp, f"Unreachable on IP: {comp.config['ip_address']}"
                 )
@@ -57,7 +57,7 @@ class KomfoventGatewayHandler(BaseObjectCommandsGatewayHandler):
             return self.fetch_komfovent(comp, try_no+1)
 
         if resp.status_code != 200:
-            if try_no >= 5:
+            if try_no >= 3:
                 self.unalive_komfovent(
                     comp, f"Status code: {resp.status_code}"
                 )
@@ -92,7 +92,7 @@ class KomfoventGatewayHandler(BaseObjectCommandsGatewayHandler):
         try:
             resp = session.get('http://192.168.0.160/i.asp')
         except requests.exceptions.Timeout:
-            if try_no >= 5:
+            if try_no >= 3:
                 self.unalive_komfovent(
                     comp, f"Unreachable on IP: {comp.config['ip_address']}"
                 )
@@ -113,7 +113,7 @@ class KomfoventGatewayHandler(BaseObjectCommandsGatewayHandler):
         try:
             state_name = resp_soup.A.OMO.text.strip()
         except:
-            if try_no >= 5:
+            if try_no >= 3:
                 self.unalive_komfovent(
                     comp, f"Unsupported i.asp XML"
                 )

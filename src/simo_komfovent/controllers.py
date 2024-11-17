@@ -49,7 +49,7 @@ class RecuperatorState(StateSelect):
                 )
                 return
             time.sleep(3)
-            return self.fetch_komfovent(comp, try_no + 1)
+            return self._fetch_data(try_no + 1)
 
         if resp.status_code != 200:
             if try_no >= 3:
@@ -58,7 +58,7 @@ class RecuperatorState(StateSelect):
                 )
                 return
             time.sleep(3)
-            return self.fetch_komfovent(comp, try_no + 1)
+            return self._fetch_data(try_no + 1)
 
         resp_soup = BeautifulSoup(resp.content, features="lxml")
 
@@ -85,15 +85,17 @@ class RecuperatorState(StateSelect):
             comp.save()
 
         try:
-            resp = session.get('http://192.168.0.160/i.asp')
+            resp = session.get(
+                'http://192.168.0.160/i.asp', timeout=3
+            )
         except requests.exceptions.Timeout:
             if try_no >= 3:
                 self._unalive_komfovent(
-                    f"Unreachable on IP: {comp.config['ip_address']}"
+                    f"Timeout of i.asp file"
                 )
                 return
             time.sleep(3)
-            return self.fetch_komfovent(comp, try_no + 1)
+            return self._fetch_data(try_no + 1)
 
         if resp.status_code != 200:
             if try_no >= 5:
@@ -102,7 +104,7 @@ class RecuperatorState(StateSelect):
                 )
                 return
             time.sleep(3)
-            return self.fetch_komfovent(comp, try_no + 1)
+            return self._fetch_data(try_no + 1)
 
         resp_soup = BeautifulSoup(resp.content, features="xml")
         try:
@@ -114,7 +116,7 @@ class RecuperatorState(StateSelect):
                 )
                 return
             time.sleep(3)
-            return self.fetch_komfovent(comp, try_no + 1)
+            return self._fetch_data(try_no + 1)
 
         device = get_device_user()
         introduce_user(device)

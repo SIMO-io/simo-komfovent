@@ -86,7 +86,7 @@ class RecuperatorState(StateSelect):
 
         try:
             resp = session.get(
-                'http://192.168.0.160/i.asp', timeout=3
+                f"http://{comp.config['ip_address']}/i.asp", timeout=3
             )
         except requests.exceptions.Timeout:
             if try_no >= 3:

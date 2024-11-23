@@ -1,4 +1,3 @@
-import random
 import time
 from celeryc import celery_app
 from django.utils import timezone
@@ -38,7 +37,7 @@ def notify_on_clogged_filters():
             )
             if iusers:
                 notify_users(
-                    comp.zone.instance, 'warning',
+                    'warning',
                     f"Filters are {comp.value}% clogged!",
                     component=comp, instance_users=iusers
                 )

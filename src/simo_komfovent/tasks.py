@@ -3,7 +3,7 @@ from celeryc import celery_app
 from django.utils import timezone
 from simo.core.middleware import introduce_instance
 from simo.core.models import Instance, Component
-from simo.generic.scripting.helpers import be_or_not_to_be
+from simo.automation.helpers import be_or_not_to_be
 from .controllers import RecuperatorFilterContamination
 
 

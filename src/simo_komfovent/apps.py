@@ -14,6 +14,10 @@ class SIMOKomfoventAppConfig(AppConfig):
         from simo.core.models import Gateway
 
         # Execute the get_or_create logic
-        Gateway.objects.get_or_create(
-            type='simo_komfovent.gateways.KomfoventGatewayHandler'
-        )
+        # database might not be initiated yet
+        try:
+            Gateway.objects.get_or_create(
+                type='simo_komfovent.gateways.KomfoventGatewayHandler'
+            )
+        except:
+            pass

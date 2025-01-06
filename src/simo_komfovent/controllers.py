@@ -155,6 +155,8 @@ class RecuperatorState(StateSelect):
 
         print(f"{comp} value: {komfovent_state}")
 
+        self._resurect_komfovent()
+
         return session
 
 
@@ -167,6 +169,17 @@ class RecuperatorState(StateSelect):
             config__recuperator=self.component.id
         ):
             related_comp.alive = False
+            related_comp.save()
+
+    def _resurect_komfovent(self):
+        self.component.alive = True
+        self.component.error_msg = None
+        self.component.save()
+        for related_comp in Component.objects.filter(
+            controller_uid__startswith='simo_komfovent',
+            config__recuperator=self.component.id
+        ):
+            related_comp.alive = True
             related_comp.save()
 
 

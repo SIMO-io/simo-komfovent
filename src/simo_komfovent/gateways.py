@@ -12,6 +12,7 @@ from .utils import MODES_MAP
 class KomfoventGatewayHandler(BaseObjectCommandsGatewayHandler):
     name = "Komfovent"
     config_form = BaseGatewayForm
+    auto_create = True
 
     periodic_tasks = (
         ('watch_komfovents', 30),

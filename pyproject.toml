@@ -4,9 +4,9 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "simo-komfovent"
-version = "1.1.7"
+version = "1.1.8"
 authors = [
-  { name="Simanas Venčkauskas", email="simanas@simo.io" },
+  { name="Simon V.", email="simon@simo.io" },
 ]
 description = "Komfovent C6 integration for SIMO.io"
 readme = "README.md"
